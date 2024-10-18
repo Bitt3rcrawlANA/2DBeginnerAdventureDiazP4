@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,12 +14,33 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 position = transform.position;
-        position.x = position.x + 0.02f;
-        transform.position = position;
+        float horizontal = 0.0f;
+        if (Keyboard.current.leftArrowKey.isPressed)
+        {
+            horizontal = -1.0f;
+        }
+        else if (Keyboard.current.rightArrowKey.isPressed)
+        {
+            horizontal = 1.0f;
+        }
+        Debug.Log(horizontal);
 
-        Vector2 position2 = transform.position;
-        position2.y = position2.y + 0.02f;
-        transform.position = position2;
+
+        float vertical = 0.0f;
+        if (Keyboard.current.upArrowKey.isPressed)
+        {
+            vertical = 1.0f;
+        }
+        else if (Keyboard.current.downArrowKey.isPressed)
+        {
+            vertical = -1.0f;
+        }
+        Debug.Log(vertical);
+
+
+        Vector2 position = transform.position;
+        position.x = position.x + 0.1f * horizontal;
+        position.y = position.y + 0.1f * vertical;
+        transform.position = position;
     }
 }
