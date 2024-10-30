@@ -2,27 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class PlayerController : MonoBehaviour
 {
+    Rigidbody2D rigidbody2d;
+    Vector2 move;
+
+    float horizontal;
+    float vertical;
+
     // Start is called before the first frame update
     void Start()
     {
-        QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = 60;
+
+        rigidbody2d = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        horizontal = Input.GetAxis("Horizontal");
+        vertical = Input.GetAxis("Vertical");
         Debug.Log(horizontal);
         Debug.Log(vertical);
 
-        Vector2 position = transform.position;
-        position.y = position.y + 1f * vertical;
-        position.x = position.x + 1f * horizontal;
-        transform.position = position;
+    }
+    void FixedUpdate()
+    {
+        Vector2 position = rigidbody2d.position;
+        position.x = position.x
+                     + 6f
+                     * horizontal
+                     * Time.deltaTime;
+        position.y = position.y
+            + 6f
+            * vertical
+            * Time.deltaTime;
+
+        rigidbody2d.MovePosition(position);
+
     }
 }
