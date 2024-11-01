@@ -6,9 +6,12 @@ using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class PlayerController : MonoBehaviour
 {
-    Rigidbody2D rigidbody2d;
-    Vector2 move;
+    public float speed = 7.0f;
+    public int maxHealth = 5;
+    public int health { get { return currentHealth; } }
+    int currentHealth;
 
+    Rigidbody2D rigidbody2d;
     float horizontal;
     float vertical;
 
@@ -17,6 +20,7 @@ public class PlayerController : MonoBehaviour
     {
 
         rigidbody2d = GetComponent<Rigidbody2D>();
+        currentHealth = maxHealth;
     }
 
     // Update is called once per frame
@@ -42,5 +46,10 @@ public class PlayerController : MonoBehaviour
 
         rigidbody2d.MovePosition(position);
 
+    }
+    public void ChangeHealth(int amount)
+    {
+        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+        Debug.Log(currentHealth + "/" + maxHealth);
     }
 }
