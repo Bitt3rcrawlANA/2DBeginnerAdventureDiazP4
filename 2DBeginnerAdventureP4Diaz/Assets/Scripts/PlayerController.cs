@@ -8,7 +8,7 @@ using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 3.0f;
+    public float speed = 4.0f;
 
     Rigidbody2D rigidbody2d;
     float horizontal;
@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         horizontal = Input.GetAxis("Horizontal");
-        vertical = Input.GetAxis("Verrtical");
+        vertical = Input.GetAxis("Vertical");
 
         Vector2 move = new Vector2(horizontal, vertical);
 
