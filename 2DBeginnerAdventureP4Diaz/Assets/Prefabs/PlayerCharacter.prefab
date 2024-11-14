@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1859689743450636975}
   - component: {fileID: 2692993702203743581}
   - component: {fileID: -3177178420761537741}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,6 +101,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d049973564c9deb4d9c449394288b0f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 4845037364130627315, guid: 9a00f0262eec4d04db7b8e79e155cf08,
+    type: 3}
+  launchAction:
+    m_Name: Launch
+    m_Type: 1
+    m_ExpectedControlType: Button
+    m_Id: 53feaafe-81c2-4df8-91b7-82a086046993
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 7e82b84c-28e1-4ec8-bbc0-364141af5ce8
+      m_Path: <Keyboard>/c
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Launch
+      m_Flags: 0
+    m_Flags: 0
   speed: 7
   maxHealth: 5
   timeInvincible: 2

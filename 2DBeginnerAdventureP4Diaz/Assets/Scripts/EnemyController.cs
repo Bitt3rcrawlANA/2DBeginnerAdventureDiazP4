@@ -15,6 +15,7 @@ public class EnemyController : MonoBehaviour
     float timer;
     int direction = 1;
 
+    bool aggressive = true;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,11 @@ public class EnemyController : MonoBehaviour
     // FixedUpdate has the same call rate as the physics system
     void FixedUpdate()
     {
+        if(!aggressive)
+        {
+            return;
+        }
+
         timer -= Time.deltaTime;
 
 
@@ -60,6 +66,8 @@ public class EnemyController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
+        EnemyController enemy = other.collider.GetComponent<EnemyController>();
+
         PlayerController player = other.gameObject.GetComponent<PlayerController>();
 
 
@@ -67,6 +75,18 @@ public class EnemyController : MonoBehaviour
         {
             player.ChangeHealth(-1);
         }
+
+
+        if (enemy != null)
+        {
+            enemy.Fix();
+        }
+    }
+
+    public void Fix()
+    {
+        aggressive = false;
+        rigidbody2d.simulated = false;
     }
 
 }

@@ -12,6 +12,14 @@ public class Projectile : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>(); 
     }
 
+    void Update()
+    {
+        if (transform.position.magnitude > 100.0f)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     // Update is called once per frame
     public void Launch(Vector2 direction, float force)
     {
@@ -19,7 +27,12 @@ public class Projectile : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("Projectile collision with " + other.gameObject);
+        EnemyController enemy = other.collider.GetComponent<EnemyController>();
+        if (enemy != null)
+        {
+            enemy.Fix();
+        }
+
         Destroy(gameObject);
     }
 }

@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameObject projectilePrefab;
+
+    public InputAction launchAction;
+
     public float speed = 4.0f;
 
     Rigidbody2D rigidbody2d;
@@ -34,6 +39,9 @@ public class PlayerController : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
         animator = GetComponent<Animator>();
+
+        launchAction.Enable();
+        launchAction.performed += Launch;
     }
 
     // Update is called once per frame
@@ -90,6 +98,15 @@ public class PlayerController : MonoBehaviour
 
 
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+    }
+
+
+    void Launch(InputAction.CallbackContext context)
+    {
+        GameObject projectileObject = Instantiate(projectilePrefab, rigidbody2d.position + Vector2.up * 0.5f, Quaternion.identity);
+        Projectile projectile = projectileObject.GetComponent<Projectile>();
+        projectile.Launch(lookDirection, 300);
+        animator.SetTrigger("Launch");
     }
 
 }
