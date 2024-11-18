@@ -71,6 +71,10 @@ public class PlayerController : MonoBehaviour
                 isInvincible = false;
 
         }
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            Launch();
+        }
     }
 
     // FixedUpdate has the same call rate as the physics system
@@ -98,12 +102,14 @@ public class PlayerController : MonoBehaviour
 
 
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+        UIHandler.instance.SetHealthValue(currentHealth / (float)maxHealth);
     }
 
 
-    void Launch(InputAction.CallbackContext context)
+    public void Launch(InputAction.CallbackContext context)
     {
         GameObject projectileObject = Instantiate(projectilePrefab, rigidbody2d.position + Vector2.up * 0.5f, Quaternion.identity);
+
         Projectile projectile = projectileObject.GetComponent<Projectile>();
         projectile.Launch(lookDirection, 300);
         animator.SetTrigger("Launch");

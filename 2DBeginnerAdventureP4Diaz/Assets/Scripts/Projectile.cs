@@ -6,10 +6,12 @@ using UnityEngine.InputSystem;
 public class Projectile : MonoBehaviour
 {
     Rigidbody2D rigidbody2d;
-    // Start is called before the first frame update
+
+
+
     void Awake()
     {
-        rigidbody2d = GetComponent<Rigidbody2D>(); 
+        rigidbody2d = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -20,14 +22,16 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+
     public void Launch(Vector2 direction, float force)
     {
         rigidbody2d.AddForce(direction * force);
     }
-    void OnCollisionEnter2D(Collision2D other)
+
+
+    void OnCollisionEnter2D(Collider2D other)
     {
-        EnemyController enemy = other.collider.GetComponent<EnemyController>();
+        EnemyController enemy = other.GetComponent<EnemyController>();
         if (enemy != null)
         {
             enemy.Fix();
@@ -35,4 +39,5 @@ public class Projectile : MonoBehaviour
 
         Destroy(gameObject);
     }
+
 }
