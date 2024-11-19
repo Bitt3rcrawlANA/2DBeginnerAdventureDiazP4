@@ -9,6 +9,8 @@ using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class PlayerController : MonoBehaviour
 {
+    public InputAction talkAction;
+
     public GameObject projectilePrefab;
 
     public InputAction launchAction;
@@ -42,6 +44,13 @@ public class PlayerController : MonoBehaviour
 
         launchAction.Enable();
         launchAction.performed += Launch;
+
+        talkAction.Enable();
+
+    }
+    void FindFriend()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(rigidbody2d.position + Vector2.up * 0.2f, lookDirection, 1.5f, LayerMask.GetMask("NPC"));
     }
 
     // Update is called once per frame
@@ -71,9 +80,10 @@ public class PlayerController : MonoBehaviour
                 isInvincible = false;
 
         }
-        if(Input.GetKeyDown(KeyCode.C))
+
+        if (Input.GetKeyDown(KeyCode.X))
         {
-            Launch();
+            FindFriend();
         }
     }
 
@@ -104,8 +114,6 @@ public class PlayerController : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         UIHandler.instance.SetHealthValue(currentHealth / (float)maxHealth);
     }
-
-
     public void Launch(InputAction.CallbackContext context)
     {
         GameObject projectileObject = Instantiate(projectilePrefab, rigidbody2d.position + Vector2.up * 0.5f, Quaternion.identity);
