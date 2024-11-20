@@ -31,10 +31,10 @@ public class Projectile : MonoBehaviour
 
     void OnCollisionEnter2D(Collider2D other)
     {
-        EnemyController enemy = other.GetComponent<EnemyController>();
-        if (enemy != null)
+        EnemyController e = other.GetComponent<EnemyController>();
+        if (e != null)
         {
-            enemy.Fix();
+            e.Fix();
         }
 
         Destroy(gameObject);
