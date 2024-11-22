@@ -33,6 +33,9 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     Vector2 lookDirection = new Vector2(1, 0);
 
+    AudioSource audioSource;
+    public AudioClip throwSound;
+    public AudioClip hitSound;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +49,8 @@ public class PlayerController : MonoBehaviour
         launchAction.performed += Launch;
 
         talkAction.Enable();
+
+        audioSource = GetComponent<AudioSource>();
 
     }
     void FindFriend()
@@ -109,6 +114,7 @@ public class PlayerController : MonoBehaviour
             damageCooldown = timeInvincible;
             animator.SetTrigger("Hit");
         }
+        PlaySound(hitSound);
 
 
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
@@ -121,6 +127,13 @@ public class PlayerController : MonoBehaviour
         Projectile projectile = projectileObject.GetComponent<Projectile>();
         projectile.Launch(lookDirection, 300);
         animator.SetTrigger("Launch");
+        PlaySound(throwSound);
     }
+
+    public void PlaySound(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
+    }
+
 
 }
